@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<students>
+    <student id="12">
+        <firstName>ytry</firstName>
+        <lastName>fh</lastName>
+        <partonymicName>hgj</partonymicName>
+        <group>14</group>
+    </student>
+    <student id="23">
+        <firstName>fjg</firstName>
+        <lastName>hkuh</lastName>
+        <partonymicName>gj</partonymicName>
+        <group>g</group>
+    </student>
+</students>
