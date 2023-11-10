@@ -26,7 +26,7 @@ public class Main {
         if (storageChoice == 1) {
             studentList = new StudentListArrayList();
         } else if (storageChoice == 2) {
-
+            studentList = new StudentListDatabase("jdbc:postgresql://localhost:5433/postgres2", "postgres", "12345");
         } else if (storageChoice == 3) {
             studentList = new StudentListFile("student.txt");
         } else if (storageChoice == 4) {
