@@ -17,22 +17,26 @@ public class StudentListXML implements StudentList {
     private List<Student> students;
     private String xmlFileName;
 
+
     public StudentListXML(String xmlFileName) {
         this.xmlFileName = xmlFileName + ".xml";
         this.students = new ArrayList<>();
         loadFromXml();
     }
 
+
     @Override
     public List<Student> getAll() {
         return students;
     }
+
 
     @Override
     public void add(Student student) {
         students.add(student);
         saveToXml();
     }
+
 
     @Override
     public Student getById(String id) {
@@ -53,6 +57,7 @@ public class StudentListXML implements StudentList {
                 break;
             }
         }
+
         if (studentToRemove != null) {
             students.remove(studentToRemove);
             saveToXml();
@@ -75,9 +80,11 @@ public class StudentListXML implements StudentList {
 
     private void loadFromXml() {
         try {
+
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             File file = new File(xmlFileName);
+
 
             if (file.exists()) {
                 Document document = builder.parse(file);

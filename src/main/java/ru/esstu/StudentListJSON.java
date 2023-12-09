@@ -19,6 +19,7 @@ public class StudentListJSON implements StudentList {
         List<Student> students = new ArrayList<>();
         try {
             JSONArray jsonArray = readJSONArrayFromJSONFile();
+
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonStudent = jsonArray.getJSONObject(i);
                 Student student = jsonToStudent(jsonStudent);
@@ -34,8 +35,10 @@ public class StudentListJSON implements StudentList {
     public void add(Student student) {
         try {
             JSONArray jsonArray = readJSONArrayFromJSONFile();
+
             JSONObject jsonStudent = studentToJSON(student);
             jsonArray.put(jsonStudent);
+
             writeJSONArrayToJSONFile(jsonArray);
         } catch (IOException e) {
             e.printStackTrace();
@@ -46,6 +49,7 @@ public class StudentListJSON implements StudentList {
     public Student getById(String id) {
         try {
             JSONArray jsonArray = readJSONArrayFromJSONFile();
+
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonStudent = jsonArray.getJSONObject(i);
                 if (jsonStudent.getString("id").equals(id)) {
@@ -55,6 +59,7 @@ public class StudentListJSON implements StudentList {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 
@@ -62,6 +67,7 @@ public class StudentListJSON implements StudentList {
     public void delete(String id) {
         try {
             JSONArray jsonArray = readJSONArrayFromJSONFile();
+
             JSONArray newJsonArray = new JSONArray();
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonStudent = jsonArray.getJSONObject(i);
@@ -69,6 +75,7 @@ public class StudentListJSON implements StudentList {
                     newJsonArray.put(jsonStudent);
                 }
             }
+
             writeJSONArrayToJSONFile(newJsonArray);
         } catch (IOException e) {
             e.printStackTrace();
@@ -79,6 +86,7 @@ public class StudentListJSON implements StudentList {
     public void update(Student student) {
         try {
             JSONArray jsonArray = readJSONArrayFromJSONFile();
+
             JSONArray newJsonArray = new JSONArray();
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonStudent = jsonArray.getJSONObject(i);
@@ -89,6 +97,7 @@ public class StudentListJSON implements StudentList {
                     newJsonArray.put(jsonStudent);
                 }
             }
+
             writeJSONArrayToJSONFile(newJsonArray);
         } catch (IOException e) {
             e.printStackTrace();
@@ -97,18 +106,23 @@ public class StudentListJSON implements StudentList {
 
     private JSONArray readJSONArrayFromJSONFile() throws IOException {
         File file = new File(jsonFileName);
+
         if (!file.exists()) {
             return new JSONArray();
         }
+
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             StringBuilder json = new StringBuilder();
             String line;
+
             while ((line = reader.readLine()) != null) {
                 json.append(line);
             }
+
             return new JSONArray(json.toString());
         }
     }
+
 
     private void writeJSONArrayToJSONFile(JSONArray jsonArray) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(jsonFileName))) {
@@ -118,11 +132,13 @@ public class StudentListJSON implements StudentList {
 
     private JSONObject studentToJSON(Student student) {
         JSONObject jsonStudent = new JSONObject();
+
         jsonStudent.put("id", student.getId());
         jsonStudent.put("firstName", student.getFirstName());
         jsonStudent.put("lastName", student.getLastName());
         jsonStudent.put("partonymicName", student.getPartonymicName());
         jsonStudent.put("group", student.getGroup());
+
         return jsonStudent;
     }
 
@@ -132,6 +148,7 @@ public class StudentListJSON implements StudentList {
         String lastName = jsonStudent.getString("lastName");
         String partonymicName = jsonStudent.getString("partonymicName");
         String group = jsonStudent.getString("group");
+
         return new Student(id, firstName, lastName, partonymicName, group);
     }
 }
